@@ -20,8 +20,10 @@ getgenv().ValiantAimHacks = {
     TeamCheck = true,
     FOV = 60,
     HitChance = 100,
-    Selected = LocalPlayer,
-    TargetPart = "HumanoidRootPart",
+    Selected = nil,
+    SelectedPart = nil,
+    
+    TargetPart = {"Head", "HumanoidRootPart"}
     BlacklistedTeams = {
         {
             Team = LocalPlayer.Team,
@@ -35,9 +37,9 @@ getgenv().ValiantAimHacks = {
  
 -- // Show FOV
 local circle = Drawing.new("Circle")
-circle.Transparency = 0
-circle.Thickness = 2
-circle.Color = Color3.fromRGB(231, 84, 128)
+circle.Transparency = 100
+circle.Thickness = 1
+circle.Color = Color3fromRGB(0, 39, 255),
 circle.NumSides = 12
 circle.Filled = false
 function ValiantAimHacks.updateCircle()
