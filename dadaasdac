@@ -32,24 +32,61 @@ getgenv().ValiantAimHacks = {
     WhitelistedPUIDs = {91318356},
 }
 
--- // Show FOV
-local circle = Drawing.new("Circle")
-circle.Transparency = 100
-circle.Thickness = 2
-circle.Color = Color3.fromRGB(231, 84, 128)
-circle.NumSides = 12
-circle.Filled = false
-function ValiantAimHacks.updateCircle()
-    if (circle) then
-        -- // Set Circle Properties
-        circle.Visible = ValiantAimHacks.ShowFOV
-        circle.Radius = (ValiantAimHacks.FOV * 3)
-        circle.Position = Vector2.new(Mouse.X, Mouse.Y + GuiService:GetGuiInset().Y)
+    ShowFOV = true,
+    FOV = 119,
+    FOVSides = 300,
+    FOVColour = Color3fromRGB(0, 39, 255),
 
-        -- // Return circle
-        return circle
+    VisibleCheck = true,
+    
+    HitChance = 100,
+
+    Selected = nil,
+    SelectedPart = nil,
+
+    TargetPart = {"Head", "HumanoidRootPart"},
+
+    Ignored = {
+        Teams = {
+            {
+                Team = LocalPlayer.Team,
+                TeamColor = LocalPlayer.TeamColor,
+            },
+        },
+        Players = {
+            LocalPlayer,
+            91318356
+        }
+    }
+}
+local Aiming = getgenv().Aiming
+
+-- // Create circle
+local circle = Drawingnew("Circle")
+circle.Transparency = 1
+circle.Thickness = 2
+circle.Color = Aiming.FOVColour
+circle.Filled = false
+Aiming.FOVCircle = circle
+
+-- // Update
+function Aiming.UpdateFOV()
+    -- // Make sure the circle exists
+    if not (circle) then
+        return
     end
+
+    -- // Set Circle Properties
+    circle.Visible = Aiming.ShowFOV
+    circle.Radius = (Aiming.FOV * 3)
+    circle.Position = Vector2new(Mouse.X, Mouse.Y + GetGuiInset(GuiService).Y)
+    circle.NumSides = Aiming.FOVSides
+    circle.Color = Aiming.FOVColour
+
+    -- // Return circle
+    return circle
 end
+
 
 -- // Custom Functions
 calcChance = function(percentage)
